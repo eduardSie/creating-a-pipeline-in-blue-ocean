@@ -19,5 +19,20 @@ pipeline {
       }
     }
 
+    stage('Docker publish') {
+      environment {
+        registry = 'eduardsie/tesestingnode'
+        registryCredential = 'dockerhub_id'
+      }
+      steps {
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+
+      }
+    }
+
   }
 }
